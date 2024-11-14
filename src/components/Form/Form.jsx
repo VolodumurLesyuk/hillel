@@ -1,6 +1,6 @@
 import './Form.css'
-import Input from './Input'
-import Button from './Button'
+import Input from '../Input/Input.jsx'
+import Button from '../Button/Button.jsx'
 
 const Form = () => {
     return (
@@ -9,7 +9,7 @@ const Form = () => {
             <p className="subtitle">Straight out of the oven, straight to you.</p>
             <p className="welcome">👉 Welcome! Please start by telling us your name:</p>
             <Input/>
-            <Button/>
+            <Button text={'Start Order'}/>
         </main>
     )
 }
