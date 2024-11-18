@@ -1,8 +1,9 @@
 import './Input.css'
 
-const Input = () => {
+const Input = (props) => {
+    const {type, placeholder, className, aria_label} = props
     return (
-        <input type="text" placeholder="Your full name" aria-label="Your full name"/>
+        <input type={type} placeholder={placeholder} aria-label={aria_label} className={className}/>
     )
 }
 
