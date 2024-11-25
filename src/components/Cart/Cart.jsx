@@ -1,6 +1,7 @@
 import cartItems from "./data.js";
 import "./Cart.css"
 import CartItem from "../CartItem/CartItem.jsx";
+import Button from "../Button/Button.jsx";
 
 const Cart = () => {
     return (
@@ -14,8 +15,8 @@ const Cart = () => {
             </div>
 
             <div className="cart-actions">
-                <button className="order-btn">Order pizzas</button>
-                <button className="clear-btn">Clear cart</button>
+                <Button className="order-btn">Order pizzas</Button>
+                <Button className="clear-btn">Clear cart</Button>
             </div>
         </div>
     )
