@@ -8,9 +8,9 @@ const App = () => {
     return (
         <>
             <Header />
-            <Menu/>
+            {/*<Menu/>*/}
             {/*<Form />*/}
-            {/*<Cart />*/}
+            <Cart />
         </>
     )
 }
