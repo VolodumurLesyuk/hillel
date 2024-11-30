@@ -1,7 +1,7 @@
 import cartItems from "./data.js";
 import "./Cart.css"
-import CartItem from "../CartItem/CartItem.jsx";
-import Button from "../Button/Button.jsx";
+import CartItem from "../../components/CartItem/CartItem.jsx";
+import Button from "../../components/Button/Button.jsx";
 
 const Cart = () => {
     return (
