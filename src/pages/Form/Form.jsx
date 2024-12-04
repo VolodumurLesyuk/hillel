@@ -1,16 +1,16 @@
 import './Form.css'
 import Input from '../../components/Input/Input.jsx'
 import Button from '../../components/Button/Button.jsx'
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {useNavigate} from "react-router";
+import {AuthContext} from "../../context/AuthContext.jsx";
 
 const Form = () => {
-    const [username, setUsername] = useState('')
+    const {username, setUsername} = useContext(AuthContext);
     const navigate = useNavigate()
 
     const handlerInputOnChange = (event) => {
         setUsername(event.target.value);
-        console.log(event.target.value)
     }
 
     const handlerButtonClick = () => {
