@@ -12,8 +12,9 @@ const Header = () => {
             <div>
                 <Link to="/menu">Меню</Link>
                 <Link to="/cart">Кошик</Link>
+                <Link to="/order-form">Замовлення</Link>
             </div>
-            <Input type="text" className="search-bar" placeholder="Search for the order #"/>
+            {username ? <Input type="text" className="search-bar" placeholder="Search for the order #"/>: ""}
             <div className="username">{username ? username: ""}</div>
         </header>
     )

@@ -4,6 +4,7 @@ import Header from './components/Header/Header.jsx';
 import Form from "./pages/Form/Form.jsx";
 import Menu from './pages/Menu/Menu.jsx';
 import Cart from "./pages/Cart/Cart.jsx";
+import OrderForm from "./pages/OrderForm/OrderForm.jsx";
 
 const App = () => {
     return (
@@ -13,6 +14,7 @@ const App = () => {
                 <Route path="/" element={<Form />} />
                 <Route path="/menu" element={<Menu />} />
                 <Route path="/cart" element={<Cart />} />
+                <Route path="/order-form" element={<OrderForm />} />
             </Routes>
         </>
     )
