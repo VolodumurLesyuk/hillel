@@ -18,6 +18,7 @@ const BlockButton = (props) => {
                 name: props.pizza.name,
                 ingredients: props.pizza.ingredients,
                 quantity: 1,
+                price: props.pizza.unitPrice,
             }
         })
     }
