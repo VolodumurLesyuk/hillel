@@ -1,17 +1,34 @@
 import "./BlockButton.css"
 import Button from "../Button/Button.jsx";
-import {useState} from "react";
+import {useContext, useReducer, useState} from "react";
+import { PizzaContext } from "../../context/PizzaContext.jsx";
 
 const BlockButton = (props) => {
+    const {dispatch} = useContext(PizzaContext)
 
     const [counter, setCounter] = useState(1);
     const [isCounterVisible, setIsCounterVisible] = useState(false);
 
     const handlerAddToCardButtonClick = (event, isCounterVisible) => {
         setIsCounterVisible(true);
+        dispatch({
+            type: "addPizza",
+            payload: {
+                id: props.pizza.id,
+                name: props.pizza.name,
+                ingredients: props.pizza.ingredients,
+                quantity: 1,
+            }
+        })
     }
 
     const handlerDecrementButtonClick = (event) => {
+        dispatch({
+            type: "decrementQuantity",
+            payload: {
+                id: props.pizza.id,
+            }
+        })
         if (counter > 1) {
             setCounter(counter - 1);
         }
@@ -21,6 +38,13 @@ const BlockButton = (props) => {
     }
     const handlerIncrementButtonClick = (event) => {
         setCounter(counter + 1);
+
+        dispatch({
+            type: "incrementQuantity",
+            payload: {
+                id: props.pizza.id,
+            }
+        })
     }
 
     return (
