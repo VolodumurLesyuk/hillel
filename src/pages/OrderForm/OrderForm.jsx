@@ -1,12 +1,13 @@
 import Input from "../../components/Input/Input.jsx";
 import Button from "../../components/Button/Button.jsx";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import {AuthContext} from "../../context/AuthContext.jsx";
 import './OrderForm.css'
 import {FormProvider, useForm} from "react-hook-form";
 import {z} from 'zod';
 import {zodResolver} from "@hookform/resolvers/zod"
 import {PizzaContext} from "../../context/PizzaContext.jsx";
+import {useNavigate} from "react-router";
 
 
 const schema = z.object({
@@ -18,8 +19,10 @@ const schema = z.object({
 
 const OrderForm = () => {
 
+    const [errorMessage, setErrorMessage] = useState(null);
     const {username} = useContext(AuthContext);
     const {pizzaContext} = useContext(PizzaContext);
+    const navigate = useNavigate();
 
     const totalPrice = pizzaContext.reduce(
         (sum, pizza) => sum + Number(pizza.price) * Number(pizza.quantity),
@@ -37,8 +40,34 @@ const OrderForm = () => {
         resolver: zodResolver(schema),
     })
 
-    const onSubmit = (data) => {
-        console.log("handleSubmit", data);
+    const onSubmit = async (data, e) => {
+        e.preventDefault();
+        const body = {
+            address: data.address,
+            customer: data.firstname,
+            phone: data.phone,
+            priority: data.priority,
+            position: "",
+            cart: [...pizzaContext],
+            totalPrice: totalPrice,
+        };
+
+        await fetch("https://react-fast-pizza-api.onrender.com/api/order", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body),
+        })
+            .then(response => response.json())
+            .then(data => {
+                // console.log(data)
+                navigate(`/order-status/${data.data.id}`);
+            })
+            .catch(error => {
+                // console.error('Помилка при створенні замовлення:', error);
+                setErrorMessage("Something went wrong. Please try again later.");
+            });
         form.reset();
     }
 
@@ -81,6 +110,8 @@ const OrderForm = () => {
             {form.formState.errors.phone && <div className="alert alert-danger">{form.formState.errors.phone.message}</div>}
             {form.formState.errors.address && <div className="alert alert-danger">{form.formState.errors.address.message}</div>}
             {form.formState.errors.priority && <div className="alert alert-danger">{form.formState.errors.priority.message}</div>}
+
+            {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
         </div>
     )
 }

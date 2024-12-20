@@ -19,6 +19,9 @@ const BlockButton = (props) => {
                 ingredients: props.pizza.ingredients,
                 quantity: 1,
                 price: props.pizza.unitPrice,
+                // для перевірки
+                unitPrice: props.pizza.unitPrice,
+                pizzaId: props.pizza.id,
             }
         })
     }

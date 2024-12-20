@@ -1,10 +1,35 @@
 import './OrderStatus.css'
+import {useParams} from "react-router";
+import {useEffect, useState} from "react";
 
 const OrderStatus = () => {
+    const { id } = useParams();
+
+    const [orderStatus, setOrderStatus] = useState({});
+
+    const getOrder = async () => {
+        try {
+            const response = await fetch(`https://react-fast-pizza-api.onrender.com/api/order/${id}`);
+            const data = await response.json();
+            if (data.data) {
+                await setOrderStatus(data.data);
+            }
+        }
+        catch (error) {
+            console.error(error.message);
+        }
+
+    };
+
+    useEffect(() => {
+        getOrder()
+    }, [id])
+
+
     return (
         <div className="container">
             <div className="header">
-                <h1 className="order-title">Order #5T460L status: preparing</h1>
+                <h1 className="order-title">Order {id} status: preparing</h1>
                 <div className="badges">
                     <span className="badge badge-priority">PRIORITY</span>
                     <span className="badge badge-preparing">PREPARING ORDER</span>
@@ -16,20 +41,26 @@ const OrderStatus = () => {
                     Only 49 minutes left 😃
                 </div>
                 <div className="estimated-time">
-                    (Estimated delivery: Dec 12, 01:37 PM)
+                    {orderStatus.estimatedDelivery}
                 </div>
             </div>
 
             <div className="order-details">
-                <div className="pizza-item-order">
-                    <div className="pizza-header">
-                        <span className="pizza-name">1× Margherita</span>
-                        <span className="pizza-price">€12.00</span>
-                    </div>
-                    <div className="ingredients">
-                        Tomato, Mozzarella, Basil
-                    </div>
-                </div>
+                {orderStatus.cart ? (
+                    orderStatus.cart.map((item) => (
+                        <div className="pizza-item-order" key={item.pizzaId}>
+                            <div className="pizza-header">
+                                <span className="pizza-name">{item.quantity}× {item.name}</span>
+                                <span className="pizza-price">€{item.unitPrice}</span>
+                            </div>
+                            <div className="ingredients">
+                                INGradients
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p>Loading order details...</p>
+                )}
             </div>
 
             <div className="price-breakdown">
