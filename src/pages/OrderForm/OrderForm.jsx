@@ -24,7 +24,7 @@ const OrderForm = () => {
     const {pizzaContext} = useContext(PizzaContext);
     const navigate = useNavigate();
 
-    const totalPrice = pizzaContext.reduce(
+    const totalPrice = pizzaContext.cartItems.reduce(
         (sum, pizza) => sum + Number(pizza.price) * Number(pizza.quantity),
         0
     );
@@ -48,7 +48,13 @@ const OrderForm = () => {
             phone: data.phone,
             priority: data.priority,
             position: "",
-            cart: [...pizzaContext],
+            cart: pizzaContext.cartItems.map((item) => ({
+                name: item.name,
+                pizzaId: item.id,
+                unitPrice: Number(item.unitPrice), // Переконуємося, що це число
+                quantity: Number(item.quantity), // Переконуємося, що це число
+                totalPrice: Number(item.unitPrice) * Number(item.quantity), // Обчислення загальної вартості
+            })),
             totalPrice: totalPrice,
         };
 
@@ -68,12 +74,13 @@ const OrderForm = () => {
                 // console.error('Помилка при створенні замовлення:', error);
                 setErrorMessage("Something went wrong. Please try again later.");
             });
-        form.reset();
+        // form.reset();
     }
 
 
     return (
         <div className="container">
+            {console.log(pizzaContext.cartItems)}
             <h1>Ready to order? Let's go!</h1>
             <FormProvider {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>

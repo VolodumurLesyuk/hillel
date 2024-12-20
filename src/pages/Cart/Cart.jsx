@@ -16,11 +16,11 @@ const Cart = () => {
 
         <div className="container">
             <Link to="/menu" className="back-link">← Back to menu</Link>
-            {pizzaContext && pizzaContext.length > 0 ? (
+            {pizzaContext.cartItems && pizzaContext.cartItems.length > 0 ? (
                 <>
                     <h1 className="cart-title">Your cart, {username}</h1>
                     <div className="cart-items">
-                        {pizzaContext.map((pizza) => (
+                        {pizzaContext.cartItems.map((pizza) => (
                         <CartItem key={pizza.id} pizza={pizza}/>
                         ))}
                     </div>
