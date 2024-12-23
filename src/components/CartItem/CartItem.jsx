@@ -9,7 +9,7 @@ const CartItem = ({pizza}) => {
         <div className="cart-item">
             <span className="quantity-text">{pizza.quantity}×</span>
             <span>{pizza.name}</span>
-            <span className="price">€{pizza.price}</span>
+            <span className="price">€{pizza.unitPrice}</span>
             <div className="quantity-controls">
                 <Button onClick={() => dispatch({
                     type: "decrementQuantity",

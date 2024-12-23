@@ -12,10 +12,13 @@ const Menu = () => {
     const {data, isLoading, error} = useFetch("https://react-fast-pizza-api.onrender.com/api/menu")
 
     useEffect(() => {
+        if (data.data && data.data.length > 0) {
+            dispatch({ type: "INIT", payload: data.data });
+        }
         console.log(data)
-        dispatch({type: "INIT", payload: data.data});
 
-    }, [dispatch]);
+
+    }, [dispatch, data.data]);
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -27,8 +30,8 @@ const Menu = () => {
 
             {error && <div>{error}</div>}
 
-            {pizzaContext.pizzaItems.map((pizza) => (
-                <PizzaItem key={pizza.id} pizza={pizza}/>
+            {pizzaContext.pizzaItems?.map((pizza) => (
+                <PizzaItem key={pizza.id} pizza={pizza} />
             ))}
         </div>
     );

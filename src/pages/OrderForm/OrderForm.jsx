@@ -25,7 +25,7 @@ const OrderForm = () => {
     const navigate = useNavigate();
 
     const totalPrice = pizzaContext.cartItems.reduce(
-        (sum, pizza) => sum + Number(pizza.price) * Number(pizza.quantity),
+        (sum, pizza) => sum + Number(pizza.unitPrice) * Number(pizza.quantity),
         0
     );
 
@@ -80,7 +80,6 @@ const OrderForm = () => {
 
     return (
         <div className="container">
-            {console.log(pizzaContext.cartItems)}
             <h1>Ready to order? Let's go!</h1>
             <FormProvider {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>

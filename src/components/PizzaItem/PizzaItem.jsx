@@ -16,7 +16,7 @@ const PizzaItem = ({ pizza }) => {
                     <p className="sold-out">SOLD OUT</p>
                 )}
             </div>
-            <BlockButton pizza={pizza} />
+            {!pizza.soldOut && <BlockButton pizza={pizza} />}
         </div>
     );
 };
